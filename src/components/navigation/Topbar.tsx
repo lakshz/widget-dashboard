@@ -3,7 +3,7 @@ import { Button } from "@/components/ui/button";
 
 const Topbar = () => {
   return (
-    <div className="shadow px-6 py-5 flex items-center text-neutral-500">
+    <div className="shadow px-6 h-[10vh] flex items-center text-neutral-500">
       <div className="cursor-pointer mx-2">
         <Home size={26} />
       </div>
