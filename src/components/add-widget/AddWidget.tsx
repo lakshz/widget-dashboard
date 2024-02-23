@@ -15,9 +15,14 @@ type AddWidgetProps = {
 
 const AddWidget = ({ widgets, setWidgets, onSave }: AddWidgetProps) => {
   const [widgetType, setWidgetType] = useState<WidgetTypes>(WidgetTypes.DATA);
+  const [colorType, setColorType] = useState(WidgetBgColors.WHITE);
 
   const handleTypeClick = (type: WidgetTypes) => {
     setWidgetType(type);
+  };
+
+  const handleColorClick = (color: WidgetBgColors) => {
+    setColorType(color);
   };
 
   const handleAddWidget = () => {
@@ -25,10 +30,11 @@ const AddWidget = ({ widgets, setWidgets, onSave }: AddWidgetProps) => {
     const index = widgets.findIndex(
       (item) => (item.widgetType as unknown as WidgetTypes) === widgetType
     );
-    const newWidget = widgets[index];
+    const newWidget = { ...widgets[index] };
 
     if (newWidget) {
-      console.log(newWidget);
+      newWidget.id = (widgets.length + 1).toString();
+      newWidget.bgColor = colorType;
 
       setWidgets((prev) => [...prev, newWidget]);
       onSave();
@@ -59,15 +65,47 @@ const AddWidget = ({ widgets, setWidgets, onSave }: AddWidgetProps) => {
         </div>
       </div>
       <div className="flex flex-1 justift-between w-full py-3">
-        <div className="w-2/3 bg-[rgb(244,244,255)] rounded-lg flex justify-center items-center">
+        <div className="w-2/3 relative bg-[rgb(244,244,255)] rounded-lg flex justify-center items-center">
           <DataWidget
             key={widgetData.widgets[0].id}
             type={widgetData.widgets[0].dataType!}
-            bgColor={widgetData.widgets[0].bgColor as WidgetBgColors}
+            bgColor={colorType}
             start={widgetData.widgets[0].start as [number, number]}
             end={widgetData.widgets[0].end as [number, number]}
             data={widgetData.widgets[0].data}
           />
+          <div className="absolute bottom-5 left-1/2 flex -translate-x-1/2 justify-center">
+            <div
+              className={clsx(
+                `rounded-full h-[2rem] w-[2rem] bg-white mr-2 cursor-pointer`,
+                {
+                  "outline outline-4 outline-gray-300":
+                    WidgetBgColors.WHITE === colorType,
+                }
+              )}
+              onClick={() => handleColorClick(WidgetBgColors.WHITE)}
+            ></div>
+            <div
+              className={clsx(
+                `rounded-full bg-primary h-[2rem] w-[2rem] mr-2 cursor-pointer`,
+                {
+                  "outline outline-4 outline-gray-300":
+                    WidgetBgColors.PRIMARY === colorType,
+                }
+              )}
+              onClick={() => handleColorClick(WidgetBgColors.PRIMARY)}
+            ></div>
+            <div
+              className={clsx(
+                `rounded-full bg-neutral-700 h-[2rem] w-[2rem] cursor-pointer`,
+                {
+                  "outline outline-4 outline-gray-300":
+                    WidgetBgColors.DARK === colorType,
+                }
+              )}
+              onClick={() => handleColorClick(WidgetBgColors.DARK)}
+            ></div>
+          </div>
         </div>
         <div className="w-1/3 px-4 flex flex-col">
           <p className="text-neutral-300 uppercase mb-2">Components</p>
