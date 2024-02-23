@@ -5,7 +5,44 @@
       "widgetType": "DATA",
       "dataType": 0,
       "bgColor": "WHITE",
-      "size": [1, 1],
+      "start": [1, 1],
+      "end": [2, 2],
+      "data": {
+        "headingRow": ["Product", "Q1-23", "Q2-23"],
+        "values": [
+          ["Reusable", "10%", "8%"],
+          ["Natural", "2%", "11%"],
+          ["Composite", "7%", "5%"],
+          ["Reusable", "3%", "4%"]
+        ],
+        "totalRow": ["Total", "8%", "12%"]
+      }
+    },
+    {
+      "id": "2",
+      "widgetType": "DATA",
+      "dataType": 0,
+      "bgColor": "PRIMARY",
+      "start": [1, 2],
+      "end": [2, 3],
+      "data": {
+        "headingRow": ["Product", "Q1-23", "Q2-23"],
+        "values": [
+          ["Reusable", "10%", "8%"],
+          ["Natural", "2%", "11%"],
+          ["Composite", "7%", "5%"],
+          ["Reusable", "3%", "4%"]
+        ],
+        "totalRow": ["Total", "8%", "12%"]
+      }
+    },
+    {
+      "id": "3",
+      "widgetType": "DATA",
+      "dataType": 0,
+      "bgColor": "DARK",
+      "start": [1, 1],
+      "end": [2, 2],
       "data": {
         "headingRow": ["Product", "Q1-23", "Q2-23"],
         "values": [
