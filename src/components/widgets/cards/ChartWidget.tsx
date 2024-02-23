@@ -2,6 +2,7 @@ import { MoreHorizontal } from "lucide-react";
 import clsx from "clsx";
 import { WidgetBgColors } from "@/types";
 import CardNavigation from "./CardNavigation";
+import { ColorsMapping } from "./DataWidget";
 
 export enum DataWidgetTypes {
   HISTORIC,
@@ -20,35 +21,7 @@ type DataWidgetProps = {
   };
 };
 
-// based on the bg color, we map all the colors for widget text
-export const ColorsMapping = {
-  [WidgetBgColors.WHITE]: {
-    topNav1: "text-primary border-b-neutral-200",
-    topNav2: "text-neutral-500",
-    headingRow1: "text-primary",
-    headingRow2: "text-[#9f9cfa]",
-    values: "text-neutral-500",
-    totalRow: "text-neutral-800",
-  },
-  [WidgetBgColors.PRIMARY]: {
-    topNav1: "text-white  border-b-white",
-    topNav2: "text-neutral-100",
-    headingRow1: "text-white font-medium",
-    headingRow2: "text-neutral-200",
-    values: "text-neutral-300",
-    totalRow: "text-neutral-100",
-  },
-  [WidgetBgColors.DARK]: {
-    topNav1: "text-white  border-b-white",
-    topNav2: "text-neutral-200",
-    headingRow1: "text-white font-medium",
-    headingRow2: "text-neutral-200",
-    values: "text-neutral-200",
-    totalRow: "text-white",
-  },
-};
-
-const DataWidget = ({ bgColor, start, end, type, data }: DataWidgetProps) => {
+const ChartWidget = ({ bgColor, start, end, type, data }: DataWidgetProps) => {
   return (
     <div
       className={clsx(
@@ -129,4 +102,4 @@ const DataWidget = ({ bgColor, start, end, type, data }: DataWidgetProps) => {
   );
 };
 
-export default DataWidget;
+export default ChartWidget;

@@ -1,7 +1,17 @@
 import { Home, Plus, Settings, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
+import AddWidget from "../add-widget/AddWidget";
+import { WidgetData } from "@/types";
+import { useState } from "react";
 
-const Topbar = () => {
+type TopbarProps = {
+  widgets: WidgetData;
+  setWidgets: React.Dispatch<React.SetStateAction<WidgetData>>;
+};
+
+const Topbar = ({ widgets, setWidgets }: TopbarProps) => {
+  const [addWidgetOpen, setAddWidgetOpen] = useState(false);
   return (
     <div className="shadow px-6 h-[10vh] flex items-center text-neutral-500">
       <div className="cursor-pointer mx-2">
@@ -18,15 +28,26 @@ const Topbar = () => {
           </div>
         </Button>
         <div className="h-full flex items-center gap-6">
-          <Button
-            variant="navigation"
-            className="flex justify-center items-center"
-          >
-            <div className="flex items-center justify-center ">
-              <Plus />
-            </div>
-            <div className="ml-2">Add Widget</div>
-          </Button>
+          <Dialog open={addWidgetOpen} onOpenChange={setAddWidgetOpen}>
+            <DialogTrigger>
+              <Button
+                variant="navigation"
+                className="flex justify-center items-center"
+              >
+                <div className="flex items-center justify-center ">
+                  <Plus />
+                </div>
+                <div className="ml-2">Add Widget</div>
+              </Button>
+            </DialogTrigger>
+            <DialogContent className="max-w-[75vw] h-[70vh] p-5 rounded-lg">
+              <AddWidget
+                onSave={() => setAddWidgetOpen(false)}
+                widgets={widgets}
+                setWidgets={setWidgets}
+              />
+            </DialogContent>
+          </Dialog>
           <div>
             <Settings />
           </div>
