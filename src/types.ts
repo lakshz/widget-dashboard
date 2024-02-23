@@ -12,4 +12,14 @@ export enum WidgetTypes {
   SUMMARY = "SUMMARY",
 }
 
+export type DataWidgetData = {
+  headingRow: string[];
+  values: string[][];
+  totalRow: string[];
+};
+
+export type SummaryWidgetData = {
+  text: string;
+};
+
 export type WidgetData = typeof widgetData.widgets;

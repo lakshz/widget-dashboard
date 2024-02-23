@@ -1,6 +1,6 @@
 import { MoreHorizontal } from "lucide-react";
 import clsx from "clsx";
-import { WidgetBgColors } from "@/types";
+import { DataWidgetData, WidgetBgColors } from "@/types";
 import CardNavigation from "./CardNavigation";
 
 export enum DataWidgetTypes {
@@ -13,11 +13,7 @@ type DataWidgetProps = {
   bgColor: WidgetBgColors;
   start: [number, number];
   end: [number, number];
-  data: {
-    headingRow: string[];
-    values: string[][];
-    totalRow: string[];
-  };
+  data: DataWidgetData;
 };
 
 // based on the bg color, we map all the colors for widget text
@@ -81,7 +77,7 @@ const DataWidget = ({ bgColor, start, end, type, data }: DataWidgetProps) => {
         <table>
           <thead>
             <tr className="grid grid-cols-3 gap-1 text-center">
-              {data.headingRow.map((s, i) => {
+              {data.headingRow.map((s: string, i: number) => {
                 return (
                   <th
                     key={i}
@@ -98,7 +94,7 @@ const DataWidget = ({ bgColor, start, end, type, data }: DataWidgetProps) => {
             </tr>
           </thead>
           <tbody>
-            {data.values.map((row, i) => (
+            {data.values.map((row: string[], i: number) => (
               <tr
                 key={i}
                 className={clsx("grid grid-cols-3 gap-1 text-center", {

@@ -1,16 +1,54 @@
 import { History, LayoutDashboard, X } from "lucide-react";
 import widgetData from "../../widgets-data.json";
 import DataWidget from "../widgets/cards/DataWidget";
-import { WidgetBgColors, WidgetTypes, WidgetData } from "@/types";
+import {
+  WidgetBgColors,
+  WidgetTypes,
+  WidgetData,
+  DataWidgetData,
+  SummaryWidgetData,
+} from "@/types";
 import { useState } from "react";
 import clsx from "clsx";
 import { Button } from "../ui/button";
 import { DialogClose } from "../ui/dialog";
+import SummaryWidget from "../widgets/cards/SummaryWidget";
 
 type AddWidgetProps = {
   onSave: () => void;
   widgets: WidgetData;
   setWidgets: React.Dispatch<React.SetStateAction<WidgetData>>;
+};
+
+const DUMMY_DATA_WIDGET = {
+  id: "1",
+  widgetType: "DATA",
+  dataType: 0,
+  bgColor: "WHITE",
+  start: [1, 2],
+  end: [3, 3],
+  data: {
+    headingRow: ["Product", "Q1-23", "Q2-23"],
+    values: [
+      ["Reusable", "10%", "8%"],
+      ["Natural", "2%", "11%"],
+      ["Composite", "7%", "5%"],
+      ["Reusable", "3%", "4%"],
+    ],
+    totalRow: ["Total", "8%", "12%"],
+  },
+};
+
+const DUMMY_SUMMARY_WIDGET = {
+  id: "2",
+  widgetType: "DATA",
+  dataType: 0,
+  bgColor: "WHITE",
+  start: [1, 1],
+  end: [2, 2],
+  data: {
+    text: "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Iusto ad, error et nemo, commodi ratione libero temporibus facilis numquam excepturi, molestiae atque! Blanditiis at dignissimos ad exercitationem minus obcaecati saepe!",
+  },
 };
 
 const AddWidget = ({ widgets, setWidgets, onSave }: AddWidgetProps) => {
@@ -26,10 +64,12 @@ const AddWidget = ({ widgets, setWidgets, onSave }: AddWidgetProps) => {
   };
 
   const handleAddWidget = () => {
-    // add an existing widget based on type
+    // adding an existing widget based on type (for now)
     const index = widgets.findIndex(
       (item) => (item.widgetType as unknown as WidgetTypes) === widgetType
     );
+
+    if (index === -1) return onSave();
     const newWidget = { ...widgets[index] };
 
     if (newWidget) {
@@ -66,14 +106,27 @@ const AddWidget = ({ widgets, setWidgets, onSave }: AddWidgetProps) => {
       </div>
       <div className="flex flex-1 justift-between w-full py-3">
         <div className="w-2/3 relative bg-[rgb(244,244,255)] rounded-lg flex justify-center items-center">
-          <DataWidget
-            key={widgetData.widgets[0].id}
-            type={widgetData.widgets[0].dataType!}
-            bgColor={colorType}
-            start={widgetData.widgets[0].start as [number, number]}
-            end={widgetData.widgets[0].end as [number, number]}
-            data={widgetData.widgets[0].data}
-          />
+          <div className="grid w-[300px] h-[250px]">
+            {widgetType === WidgetTypes.DATA && (
+              <DataWidget
+                key={DUMMY_DATA_WIDGET.id}
+                type={DUMMY_DATA_WIDGET.dataType!}
+                bgColor={colorType}
+                start={DUMMY_DATA_WIDGET.start as [number, number]}
+                end={DUMMY_DATA_WIDGET.end as [number, number]}
+                data={DUMMY_DATA_WIDGET.data as DataWidgetData}
+              />
+            )}
+            {widgetType === WidgetTypes.SUMMARY && (
+              <SummaryWidget
+                key={DUMMY_SUMMARY_WIDGET.id}
+                bgColor={colorType}
+                start={DUMMY_SUMMARY_WIDGET.start as [number, number]}
+                end={DUMMY_SUMMARY_WIDGET.end as [number, number]}
+                data={DUMMY_SUMMARY_WIDGET.data as SummaryWidgetData}
+              />
+            )}
+          </div>
           <div className="absolute bottom-5 left-1/2 flex -translate-x-1/2 justify-center">
             <div
               className={clsx(

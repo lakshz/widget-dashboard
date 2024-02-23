@@ -17,6 +17,17 @@
         ],
         "totalRow": ["Total", "8%", "12%"]
       }
+    },
+    {
+      "id": "2",
+      "widgetType": "SUMMARY",
+      "dataType": 0,
+      "bgColor": "WHITE",
+      "start": [1, 2],
+      "end": [3, 3],
+      "data": {
+        "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam scelerisque sapien vitae nunc facilisis, in fermentum lacus tristique. Proin facilisis vulputate augue, et pulvinar odio accumsan in. Mauris euismod risus."
+      }
     }
   ]
 }
