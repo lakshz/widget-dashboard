@@ -127,6 +127,9 @@ const AddWidget = ({ widgets, setWidgets, onSave }: AddWidgetProps) => {
               />
             )}
           </div>
+          <div className="absolute top-5 left-5 text-lg text-primary">
+            1 X 1
+          </div>
           <div className="absolute bottom-5 left-1/2 flex -translate-x-1/2 justify-center">
             <div
               className={clsx(

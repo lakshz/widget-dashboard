@@ -22,4 +22,9 @@ export type SummaryWidgetData = {
   text: string;
 };
 
+export type ChartWidgetData = {
+  x: number[];
+  y: number[];
+};
+
 export type WidgetData = typeof widgetData.widgets;

@@ -28,6 +28,13 @@
       "data": {
         "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam scelerisque sapien vitae nunc facilisis, in fermentum lacus tristique. Proin facilisis vulputate augue, et pulvinar odio accumsan in. Mauris euismod risus."
       }
+    },
+    {
+      "id": "3",
+      "widgetType": "GRAPH",
+      "bgColor": "WHITE",
+      "start": [1, 2],
+      "end": [3, 3]
     }
   ]
 }

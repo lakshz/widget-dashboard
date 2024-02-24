@@ -11,7 +11,7 @@ function App() {
   return (
     <>
       <Sidebar />
-      <main className="pl-[100px] flex flex-col">
+      <main className="pl-[100px] flex flex-col min-h-[100vh]">
         <Topbar widgets={widgets} setWidgets={setWidgets} />
         <Widgets widgets={widgets} />
       </main>
