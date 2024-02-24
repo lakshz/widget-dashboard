@@ -46,7 +46,7 @@ const DUMMY_DATA_WIDGET = {
 
 const DUMMY_SUMMARY_WIDGET = {
   id: "2",
-  widgetType: "DATA",
+  widgetType: "SUMMARY",
   dataType: 0,
   bgColor: "WHITE",
   data: {
@@ -55,14 +55,10 @@ const DUMMY_SUMMARY_WIDGET = {
 };
 
 const DUMMY_CHART_WIDGET = {
-  id: "2",
-  widgetType: "CHART",
-  dataType: 0,
+  id: "3",
+  widgetType: "GRAPH",
   bgColor: "WHITE",
   chartType: "ordinal",
-  data: {
-    text: "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Iusto ad, error et nemo, commodi ratione libero temporibus facilis numquam excepturi, molestiae atque! Blanditiis at dignissimos ad exercitationem minus obcaecati saepe!",
-  },
 };
 
 const AddWidget = ({ widgets, setWidgets, onSave }: AddWidgetProps) => {
@@ -79,21 +75,21 @@ const AddWidget = ({ widgets, setWidgets, onSave }: AddWidgetProps) => {
   };
 
   const handleAddWidget = () => {
-    // adding an existing widget based on type (for now)
-    const index = widgets.findIndex(
-      (item) => (item.widgetType as unknown as WidgetTypes) === widgetType
-    );
-
-    if (index === -1) return onSave();
-    const newWidget = { ...widgets[index] };
-
-    if (newWidget) {
-      newWidget.id = (widgets.length + 1).toString();
+    // Add a dummy widget for now
+    let newWidget: any;
+    if (widgetType === WidgetTypes.DATA) {
+      newWidget = { ...DUMMY_DATA_WIDGET };
       newWidget.bgColor = colorType;
-
-      setWidgets((prev) => [...prev, newWidget]);
-      onSave();
+    } else if (widgetType === WidgetTypes.GRAPH) {
+      newWidget = { ...DUMMY_CHART_WIDGET };
+      newWidget.chartType = chartType;
+    } else if (widgetType === WidgetTypes.SUMMARY) {
+      newWidget = { ...DUMMY_SUMMARY_WIDGET };
+      newWidget.bgColor = colorType;
     }
+    newWidget.id = (widgets.length + 1).toString();
+    setWidgets((prev) => [...prev, newWidget]);
+    onSave();
   };
 
   return (
@@ -218,7 +214,8 @@ const AddWidget = ({ widgets, setWidgets, onSave }: AddWidgetProps) => {
                     className={clsx(
                       "w-1/2 flex justify-center h-full py-1 border rounded-md",
                       {
-                        "bg-white text-neutral-900": chartType === "ordinal",
+                        "bg-white text-neutral-900 shadow":
+                          chartType === "ordinal",
                       }
                     )}
                     onClick={() => setChartType("ordinal")}
@@ -229,7 +226,8 @@ const AddWidget = ({ widgets, setWidgets, onSave }: AddWidgetProps) => {
                     className={clsx(
                       "w-1/2 flex justify-center py-1 h-full rounded-md",
                       {
-                        "bg-white text-neutral-900 ": chartType === "time",
+                        "bg-white text-neutral-900 shadow":
+                          chartType === "time",
                       }
                     )}
                     onClick={() => setChartType("time")}

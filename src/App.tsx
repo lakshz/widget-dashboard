@@ -7,7 +7,6 @@ import { WidgetData } from "./types";
 
 function App() {
   const [widgets, setWidgets] = useState<WidgetData>(widgetData.widgets);
-  console.log(widgets);
   return (
     <>
       <Sidebar />
