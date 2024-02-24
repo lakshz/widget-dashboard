@@ -5,17 +5,14 @@ import { MoreHorizontal } from "lucide-react";
 
 type SummaryWidgetProps = {
   bgColor: WidgetBgColors;
-  start: [number, number];
-  end: [number, number];
   data: SummaryWidgetData;
 };
 
-const SummaryWidget = ({ bgColor, start, end, data }: SummaryWidgetProps) => {
+const SummaryWidget = ({ bgColor, data }: SummaryWidgetProps) => {
   return (
     <div
       className={clsx(
-        `shadow-lg rounded-[20px] p-4 w-[300px] h-[300px] mr-8 mb-8`,
-        // `shadow-lg rounded-[20px] p-4 row-start-1 row-end-2 col-start-1 col-end-2`,
+        `shadow-lg rounded-[20px] p-4 w-[325px] h-[300px] mr-8 mb-8`,
         {
           "bg-white": bgColor === WidgetBgColors.WHITE,
           "bg-primary": bgColor === WidgetBgColors.PRIMARY,

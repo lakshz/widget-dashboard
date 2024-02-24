@@ -1,5 +1,10 @@
-import { History, LayoutDashboard, X } from "lucide-react";
-import widgetData from "../../widgets-data.json";
+import {
+  BarChart3,
+  History,
+  LayoutDashboard,
+  LineChart,
+  X,
+} from "lucide-react";
 import DataWidget from "../widgets/cards/DataWidget";
 import {
   WidgetBgColors,
@@ -7,12 +12,14 @@ import {
   WidgetData,
   DataWidgetData,
   SummaryWidgetData,
+  ChartTypes,
 } from "@/types";
 import { useState } from "react";
 import clsx from "clsx";
 import { Button } from "../ui/button";
 import { DialogClose } from "../ui/dialog";
 import SummaryWidget from "../widgets/cards/SummaryWidget";
+import ChartWidget from "../widgets/cards/ChartWidget";
 
 type AddWidgetProps = {
   onSave: () => void;
@@ -25,8 +32,6 @@ const DUMMY_DATA_WIDGET = {
   widgetType: "DATA",
   dataType: 0,
   bgColor: "WHITE",
-  start: [1, 2],
-  end: [3, 3],
   data: {
     headingRow: ["Product", "Q1-23", "Q2-23"],
     values: [
@@ -44,8 +49,17 @@ const DUMMY_SUMMARY_WIDGET = {
   widgetType: "DATA",
   dataType: 0,
   bgColor: "WHITE",
-  start: [1, 1],
-  end: [2, 2],
+  data: {
+    text: "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Iusto ad, error et nemo, commodi ratione libero temporibus facilis numquam excepturi, molestiae atque! Blanditiis at dignissimos ad exercitationem minus obcaecati saepe!",
+  },
+};
+
+const DUMMY_CHART_WIDGET = {
+  id: "2",
+  widgetType: "CHART",
+  dataType: 0,
+  bgColor: "WHITE",
+  chartType: "ordinal",
   data: {
     text: "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Iusto ad, error et nemo, commodi ratione libero temporibus facilis numquam excepturi, molestiae atque! Blanditiis at dignissimos ad exercitationem minus obcaecati saepe!",
   },
@@ -54,6 +68,7 @@ const DUMMY_SUMMARY_WIDGET = {
 const AddWidget = ({ widgets, setWidgets, onSave }: AddWidgetProps) => {
   const [widgetType, setWidgetType] = useState<WidgetTypes>(WidgetTypes.DATA);
   const [colorType, setColorType] = useState(WidgetBgColors.WHITE);
+  const [chartType, setChartType] = useState<ChartTypes>("ordinal");
 
   const handleTypeClick = (type: WidgetTypes) => {
     setWidgetType(type);
@@ -106,14 +121,12 @@ const AddWidget = ({ widgets, setWidgets, onSave }: AddWidgetProps) => {
       </div>
       <div className="flex flex-1 justift-between w-full py-3">
         <div className="w-2/3 relative bg-[rgb(244,244,255)] rounded-lg flex justify-center items-center">
-          <div className="grid w-[300px] h-[250px]">
+          <div className="grid w-[300px] h-[250px] mb-8 mr-8">
             {widgetType === WidgetTypes.DATA && (
               <DataWidget
                 key={DUMMY_DATA_WIDGET.id}
                 type={DUMMY_DATA_WIDGET.dataType!}
                 bgColor={colorType}
-                start={DUMMY_DATA_WIDGET.start as [number, number]}
-                end={DUMMY_DATA_WIDGET.end as [number, number]}
                 data={DUMMY_DATA_WIDGET.data as DataWidgetData}
               />
             )}
@@ -121,47 +134,55 @@ const AddWidget = ({ widgets, setWidgets, onSave }: AddWidgetProps) => {
               <SummaryWidget
                 key={DUMMY_SUMMARY_WIDGET.id}
                 bgColor={colorType}
-                start={DUMMY_SUMMARY_WIDGET.start as [number, number]}
-                end={DUMMY_SUMMARY_WIDGET.end as [number, number]}
                 data={DUMMY_SUMMARY_WIDGET.data as SummaryWidgetData}
+              />
+            )}
+            {widgetType === WidgetTypes.GRAPH && (
+              <ChartWidget
+                key={DUMMY_CHART_WIDGET.id}
+                chartType={chartType}
+                chartSeries={3}
+                bgColor={DUMMY_CHART_WIDGET.bgColor as WidgetBgColors}
               />
             )}
           </div>
           <div className="absolute top-5 left-5 text-lg text-primary">
             1 X 1
           </div>
-          <div className="absolute bottom-5 left-1/2 flex -translate-x-1/2 justify-center">
-            <div
-              className={clsx(
-                `rounded-full h-[2rem] w-[2rem] bg-white mr-2 cursor-pointer`,
-                {
-                  "outline outline-4 outline-gray-300":
-                    WidgetBgColors.WHITE === colorType,
-                }
-              )}
-              onClick={() => handleColorClick(WidgetBgColors.WHITE)}
-            ></div>
-            <div
-              className={clsx(
-                `rounded-full bg-primary h-[2rem] w-[2rem] mr-2 cursor-pointer`,
-                {
-                  "outline outline-4 outline-gray-300":
-                    WidgetBgColors.PRIMARY === colorType,
-                }
-              )}
-              onClick={() => handleColorClick(WidgetBgColors.PRIMARY)}
-            ></div>
-            <div
-              className={clsx(
-                `rounded-full bg-neutral-700 h-[2rem] w-[2rem] cursor-pointer`,
-                {
-                  "outline outline-4 outline-gray-300":
-                    WidgetBgColors.DARK === colorType,
-                }
-              )}
-              onClick={() => handleColorClick(WidgetBgColors.DARK)}
-            ></div>
-          </div>
+          {widgetType !== WidgetTypes.GRAPH && (
+            <div className="absolute bottom-5 left-1/2 flex -translate-x-1/2 justify-center">
+              <div
+                className={clsx(
+                  `rounded-full h-[2rem] w-[2rem] bg-white mr-2 cursor-pointer`,
+                  {
+                    "outline outline-4 outline-gray-300":
+                      WidgetBgColors.WHITE === colorType,
+                  }
+                )}
+                onClick={() => handleColorClick(WidgetBgColors.WHITE)}
+              ></div>
+              <div
+                className={clsx(
+                  `rounded-full bg-primary h-[2rem] w-[2rem] mr-2 cursor-pointer`,
+                  {
+                    "outline outline-4 outline-gray-300":
+                      WidgetBgColors.PRIMARY === colorType,
+                  }
+                )}
+                onClick={() => handleColorClick(WidgetBgColors.PRIMARY)}
+              ></div>
+              <div
+                className={clsx(
+                  `rounded-full bg-neutral-700 h-[2rem] w-[2rem] cursor-pointer`,
+                  {
+                    "outline outline-4 outline-gray-300":
+                      WidgetBgColors.DARK === colorType,
+                  }
+                )}
+                onClick={() => handleColorClick(WidgetBgColors.DARK)}
+              ></div>
+            </div>
+          )}
         </div>
         <div className="w-1/3 px-4 flex flex-col">
           <p className="text-neutral-300 uppercase mb-2">Components</p>
@@ -191,6 +212,32 @@ const AddWidget = ({ widgets, setWidgets, onSave }: AddWidgetProps) => {
             >
               <p className="text-neutral-700 text-lg mb-1">Graph</p>
               <p className="text-neutral-400 text-sm">Random Description</p>
+              {widgetType === WidgetTypes.GRAPH && (
+                <div className="mt-1 bg-neutral-200 text-neutral-500 rounded-md flex justify-center items-center w-[80px] h-[26px]">
+                  <div
+                    className={clsx(
+                      "w-1/2 flex justify-center h-full py-1 border rounded-md",
+                      {
+                        "bg-white text-neutral-900": chartType === "ordinal",
+                      }
+                    )}
+                    onClick={() => setChartType("ordinal")}
+                  >
+                    <BarChart3 size={18} />
+                  </div>
+                  <div
+                    className={clsx(
+                      "w-1/2 flex justify-center py-1 h-full rounded-md",
+                      {
+                        "bg-white text-neutral-900 ": chartType === "time",
+                      }
+                    )}
+                    onClick={() => setChartType("time")}
+                  >
+                    <LineChart size={18} />
+                  </div>
+                </div>
+              )}
             </div>
             <div
               className={clsx(

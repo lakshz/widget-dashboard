@@ -11,8 +11,6 @@ export enum DataWidgetTypes {
 type DataWidgetProps = {
   type: DataWidgetTypes;
   bgColor: WidgetBgColors;
-  start: [number, number];
-  end: [number, number];
   data: DataWidgetData;
 };
 
@@ -44,11 +42,11 @@ export const ColorsMapping = {
   },
 };
 
-const DataWidget = ({ bgColor, start, end, type, data }: DataWidgetProps) => {
+const DataWidget = ({ bgColor, type, data }: DataWidgetProps) => {
   return (
     <div
       className={clsx(
-        `shadow-lg rounded-[20px] p-4 w-[300px] h-[300px] mr-8 mb-8`,
+        `shadow-lg rounded-[20px] p-4 w-[325px] h-[300px] mr-8 mb-8`,
         {
           "bg-white": bgColor === WidgetBgColors.WHITE,
           "bg-primary": bgColor === WidgetBgColors.PRIMARY,

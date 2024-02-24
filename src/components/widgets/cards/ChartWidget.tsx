@@ -1,7 +1,7 @@
 import React from "react";
-import { GanttChartSquare, MoreHorizontal } from "lucide-react";
+import { MoreHorizontal } from "lucide-react";
 import clsx from "clsx";
-import { WidgetBgColors } from "@/types";
+import { ChartTypes, WidgetBgColors } from "@/types";
 import CardNavigation from "./CardNavigation";
 import { ColorsMapping } from "./DataWidget";
 import useChartConfig from "@/hooks/useChart";
@@ -9,19 +9,11 @@ import { AxisOptions, Chart } from "react-charts";
 
 type ChartWidgetProps = {
   bgColor: WidgetBgColors;
-  start: [number, number];
-  end: [number, number];
-  chartType: "ordinal" | "time";
+  chartType: ChartTypes;
   chartSeries: number;
 };
 
-const ChartWidget = ({
-  bgColor,
-  start,
-  end,
-  chartType,
-  chartSeries,
-}: ChartWidgetProps) => {
+const ChartWidget = ({ bgColor, chartType, chartSeries }: ChartWidgetProps) => {
   const { data } = useChartConfig({
     series: chartSeries,
     dataType: chartType,
@@ -49,8 +41,7 @@ const ChartWidget = ({
   return (
     <div
       className={clsx(
-        `shadow-lg rounded-[20px] p-4 w-[300px] h-[300px] mr-8 mb-8`,
-        // `shadow-lg rounded-[20px] p-4 row-start-1 row-end-2 col-start-1 col-end-2`,
+        `shadow-lg rounded-[20px] p-4 w-[325px] h-[300px] mr-8 mb-8`,
         {
           "bg-white": bgColor === WidgetBgColors.WHITE,
           "bg-primary": bgColor === WidgetBgColors.PRIMARY,

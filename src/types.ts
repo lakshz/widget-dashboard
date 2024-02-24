@@ -22,9 +22,6 @@ export type SummaryWidgetData = {
   text: string;
 };
 
-export type ChartWidgetData = {
-  x: number[];
-  y: number[];
-};
+export type ChartTypes = "ordinal" | "time";
 
 export type WidgetData = typeof widgetData.widgets;

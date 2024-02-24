@@ -1,7 +1,7 @@
 import DataWidget from "./cards/DataWidget";
 import widgetData from "../../widgets-data.json";
 import {
-  ChartWidgetData,
+  ChartTypes,
   DataWidgetData,
   SummaryWidgetData,
   WidgetBgColors,
@@ -22,8 +22,6 @@ const Widgets = ({ widgets }: WidgetsProps) => {
           key={widget.id}
           type={widget.dataType!}
           bgColor={widget.bgColor as WidgetBgColors}
-          start={widget.start as [number, number]}
-          end={widget.end as [number, number]}
           data={widget.data as DataWidgetData}
         />
       );
@@ -31,8 +29,6 @@ const Widgets = ({ widgets }: WidgetsProps) => {
       return (
         <SummaryWidget
           key={widget.id}
-          start={widget.start as [number, number]}
-          end={widget.end as [number, number]}
           bgColor={widget.bgColor as WidgetBgColors}
           data={widget.data as SummaryWidgetData}
         />
@@ -40,11 +36,9 @@ const Widgets = ({ widgets }: WidgetsProps) => {
     } else if (widget.widgetType === WidgetTypes.GRAPH) {
       return (
         <ChartWidget
-          chartType="time"
-          chartSeries={3}
           key={widget.id}
-          start={widget.start as [number, number]}
-          end={widget.end as [number, number]}
+          chartType={widget.chartType as ChartTypes}
+          chartSeries={3}
           bgColor={widget.bgColor as WidgetBgColors}
         />
       );
